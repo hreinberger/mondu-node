@@ -6,12 +6,20 @@
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
+    "axios": "^1.2.2",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "dotenv": "^16.0.3",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
+    "node-fetch": "^3.3.0",
     "nodemon": "^2.0.20",
     "pug": "2.0.0-beta11"
+  },
+  "devDependencies": {
+    "eslint": "^8.31.0",
+    "eslint-config-prettier": "^8.6.0",
+    "prettier": "2.8.2"
   }
 }
