@@ -7,6 +7,9 @@ checkoutButton.addEventListener('click', async (event) => {
   event.preventDefault();
 
   // Send the form data to the internal API and get the session token
+  // Why don't we request the Mondu API directly from here?
+  // Because we don't want our precious API key to leak to the client
+  // It's always a good idea to do as many requests Server-to-Server to avoid leaking secrets
   const formData = new FormData(checkoutForm);
   const response = await fetch('/formhandler', {
     method: 'POST',
