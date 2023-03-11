@@ -10,15 +10,16 @@ const config = {
 }
 
     let response = await axios(config);
-    return response;
+    return response.data.orders;
 };
 
 
 router.get('/', async(req, res, next) => {
 
     orders = await getOrders();
-//    console.log(orders.data.orders)
-    res.send(orders.data.orders)
+    res.render('getorders', {
+        orders
+    })
 
 });
 
