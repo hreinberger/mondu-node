@@ -1,6 +1,12 @@
 extends layout
 
-block content 
+block content
   .container
     h1= title
-    p You just made a successful Mondu transaction!
+    .alert.alert-success
+      h4.alert-heading Well Done!
+      p You just made a successful Mondu transaction!
+      p
+       | Now go have a look at it in the orders screen
+      p
+        a.alert-link(href="/orders") Link

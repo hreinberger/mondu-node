@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  .container
+    h1 Orders
+    p This page shows basic info for the last 10 Mondu orders
+    p Currently, the amount of orders is only configurable by changing the request URL in the /routes/orders/index.js file.
+  .container
+    table.table.table-hover
+      caption.caption-top Order List
+      thead
+        tr
+          th Created at
+          th External Order ID
+          th Mondu UUID
+          th Payment Method
+          th Amount
+          th Status
+      tbody.table-group-divider
+        each order in orders
+          tr
+            td= order.created_at
+            td= order.external_reference_id
+            td= order.uuid
+            td= order.payment_method
+            td= order.real_price_cents/100
+            td= order.state

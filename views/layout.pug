@@ -7,12 +7,26 @@ html(lang='')
     //- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags
     meta(name='description', content='Mondu Integration')
     meta(name='author', content='Hannes Reinberger')
-    title
+    title Mondu Demo Integration
     //- Bootstrap core CSS
     link(href='/stylesheets/bootstrap.css', rel='stylesheet')
     //- link(href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css', rel='stylesheet')
     //- link(href='/css/style.css', rel='stylesheet')
+    link(href='../stylesheets/checkout.css' rel='stylesheet')
   body
+    nav.navbar.navbar-expand
+      .container-fluid
+        a(class="navbar-brand" href="/") Mondu Demo Integration
+        button(class="navbar-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false"
+            aria-label="Toggle navigation")
+          span(class="navbar-toggler-icon")
+        div(class="collapse navbar-collapse" id="navbarNavAltMarkup")
+          div(class="navbar-nav")
+            a(class="nav-link" href="/checkout") Checkout
+            a(class="nav-link" href="/orders") Orders
+            a(class='nav-link' href="https://github.com/hreinberger/mondu-node") Github Repo
+    //- view content starts here
     block content
-    script(src='/javascripts/bootstrap.js')
-    
+    script(src='javascripts/bootstrap.js' defer='')

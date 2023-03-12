@@ -13,7 +13,7 @@ var indexRouter = require('./routes/index');
 // The Routes we're using
 var formHandlerRouter = require('./routes/formhandler');
 var checkoutRouter = require('./routes/checkout');
-var getordersRouter = require('./routes/getorders');
+var getordersRouter = require('./routes/orders');
 var successRouter = require('./routes/success');
 
 
@@ -37,7 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/formhandler', formHandlerRouter);
 app.use('/checkout', checkoutRouter);
-app.use('/getorders', getordersRouter);
+app.use('/orders', getordersRouter);
 app.use('/success', successRouter);
 
 // catch 404 and forward to error handler

@@ -1,8 +1,0 @@
-extends layout
-
-block content 
-  .container
-    h1= "Get Orders"
-    p= "This page shows the raw output for the last Mondu order"
-    - let flatorders = JSON.stringify(orders, null, 4)
-    p= flatorders

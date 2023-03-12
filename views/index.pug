@@ -1,12 +1,10 @@
 extends layout
 
-block content 
+block content
   .container
     h1= title
-    p Welcome to #{title}. This demo app can guide you on your way towards a successful Mondu integration in your checkout.
-    p Check out the code in the 
-      a(href="https://github.com/hreinberger/mondu-node") Repo.
-    p 
-      a(href="/checkout") checkout (start here!)
-    p 
-      a(href="/getorders") inspect latest order
+    p This demo app can guide you on your way towards a successful Mondu integration in your checkout.
+    p
+      a.btn.btn-primary.btn-lg(href="/checkout") Start Checkout
+    p
+      a(href="/orders") inspect latest orders
