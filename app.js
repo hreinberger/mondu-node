@@ -9,7 +9,6 @@ require('dotenv').config()
 
 // standard Express Routes
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 // The Routes we're using
 var formHandlerRouter = require('./routes/formhandler');
@@ -36,7 +35,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routers
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/formhandler', formHandlerRouter);
 app.use('/checkout', checkoutRouter);
 app.use('/getorders', getordersRouter);
