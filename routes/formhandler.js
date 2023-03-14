@@ -74,6 +74,7 @@ router.post('/', upload.none(), async function(req, res) {
       external_reference_id: 'test' + Date.now(), // fill external reference with a unique value. Can be changed later
       notes: 'your notes here',
       source: 'widget',
+      state_flow: 'authorization_flow',
       gross_amount_cents: 22000
     }
   };
