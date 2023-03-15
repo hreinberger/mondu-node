@@ -69,7 +69,7 @@ authorizeButton.addEventListener('click', async (event) => {
     onSuccess: () => {
         // redirect to success page
         console.log('Mondu Success!')
-        setTimeout( () => {window.location.href = '/mondu-confirm-order/'+ uuid;}, "2000");
+        setTimeout( () => {window.location.href = '/order/'+ uuid;}, "2000");
     },
     onError: (err) => {
         console.log(err)

@@ -16,6 +16,7 @@ var monduConfirmRouter = require('./routes/monduConfirm');
 var monduConfirmOrderRouter = require('./routes/confirmOrder');
 var checkoutRouter = require('./routes/checkout');
 var getordersRouter = require('./routes/orders');
+var getorderRouter = require('./routes/order');
 var successRouter = require('./routes/success');
 
 
@@ -42,6 +43,7 @@ app.use('/mondu-confirm', monduConfirmRouter);
 app.use('/mondu-confirm-order', monduConfirmOrderRouter);
 app.use('/checkout', checkoutRouter);
 app.use('/orders', getordersRouter);
+app.use('/order', getorderRouter);
 app.use('/success', successRouter);
 
 // catch 404 and forward to error handler

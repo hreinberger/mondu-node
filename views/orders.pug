@@ -20,7 +20,8 @@ block content
           tr.align-middle
             td= order.created_at
             td= order.external_reference_id
-            td= order.uuid
+            td
+              a(href="/order/" + order.uuid) #{order.uuid}
             td= order.payment_method
             td= order.real_price_cents/100
             td
