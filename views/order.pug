@@ -21,6 +21,28 @@ block content
                                         span.badge.bg-danger= order.state
                                     default 
                                         span.badge.bg-secondary= order.state
+                            //- Show confirmation button if there's something to confirm
                             if order.state === "authorized"
                                 p.alert.alert-secondary This order is currently authorized by Mondu. You can confirm it by clicking the button below.
-                                button.btn.btn-success Confirm
+                                button.btn.btn-success#confirm-button Confirm
+
+    //- If confirm button is clicked, call internal API that handles the Mondu Order Confirmation
+    script. 
+        confirmButton = document.getElementById('confirm-button');
+        confirmButton.addEventListener('click', async (event) => {
+            event.preventDefault();
+            const uuid = '#{order.uuid}';
+            const response = await fetch('/mondu-confirm-order', {
+                method: 'POST',
+                headers: {
+                "Content-Type": "application/json"},
+                body: JSON.stringify({ uuid: uuid })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.order.state === "confirmed") {
+                    window.location.href = "/success";
+            }
+            })
+            .catch(error => console.error(error));
+        });

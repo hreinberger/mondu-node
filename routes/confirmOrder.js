@@ -1,19 +1,18 @@
 var express = require('express');
 var router = express.Router();
 const axios = require('axios');
-const multer  = require('multer')
-const upload = multer()
 const { v4: uuidv4, validate: uuidValidate } = require('uuid');
 
-router.get('/:uuid', upload.none(), async function(req, res) {
+router.post('/', async function(req, res) {
 
+  console.log(req.body);
     // validate the UUID parameter
-  if (!uuidValidate(req.params.uuid)) {
+  if (!uuidValidate(req.body.uuid)) {
     res.status(400).send('Invalid UUID');
     return;
   }
 
-  uuid = req.params.uuid
+  uuid = req.body.uuid
   url = 'https://api.demo.mondu.ai/api/v1/orders/' + uuid + '/confirm'
 
   // Fill Confirm Order API Request
