@@ -5,15 +5,14 @@ const { v4: uuidv4, validate: uuidValidate } = require('uuid');
 
 router.post('/', async function(req, res) {
 
-  console.log(req.body);
-    // validate the UUID parameter
+  // validate the UUID parameter
   if (!uuidValidate(req.body.uuid)) {
     res.status(400).send('Invalid UUID');
     return;
   }
 
-  uuid = req.body.uuid
-  url = 'https://api.demo.mondu.ai/api/v1/orders/' + uuid + '/confirm'
+  const uuid = req.body.uuid
+  const url = 'https://api.demo.mondu.ai/api/v1/orders/' + uuid + '/confirm'
 
   // Fill Confirm Order API Request
   const options = {
