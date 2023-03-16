@@ -48,7 +48,7 @@ In this flow, Mondu confirms or declines an order once the buyer's interaction w
 
 ```mermaid
 sequenceDiagram
-    Buyer ->> Merchant: Choose Mondu payment method
+    Buyer ->> Merchant: Confirm Order ("Buy Now")
     Merchant ->>+ Mondu: Create Order
     Mondu -->>- Merchant: Order Token
     Merchant -->> Buyer: Show Widget
