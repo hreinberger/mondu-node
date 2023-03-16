@@ -1,0 +1,48 @@
+extends layout
+
+block content 
+    .container 
+        .row.justify-content-md-center 
+            .col-6 
+                .card
+                    .card-header.text-center
+                        span Order details
+                    .card-body 
+                        .card-title 
+                            h5 Reference ID: #{order.external_reference_id }
+                        .card-body
+                            p Mondu uuid: #{order.uuid}
+                            p Amount in cents: #{order.real_price_cents}
+                            p State: 
+                                case order.state
+                                    when "confirmed"
+                                        span.badge.bg-success= order.state
+                                    when "canceled"
+                                        span.badge.bg-danger= order.state
+                                    default 
+                                        span.badge.bg-secondary= order.state
+                            //- Show confirmation button if there's something to confirm
+                            if order.state === "authorized"
+                                p.alert.alert-secondary This order is currently authorized by Mondu. You can confirm it by clicking the button below.
+                                button.btn.btn-success#confirm-button Confirm
+
+    //- If confirm button is clicked, call internal API that handles the Mondu Order Confirmation
+    script. 
+        confirmButton = document.getElementById('confirm-button');
+        confirmButton.addEventListener('click', async (event) => {
+            event.preventDefault();
+            const uuid = '#{order.uuid}';
+            const response = await fetch('/mondu-confirm-order', {
+                method: 'POST',
+                headers: {
+                "Content-Type": "application/json"},
+                body: JSON.stringify({ uuid: uuid })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.order.state === "confirmed") {
+                    window.location.href = "/success";
+            }
+            })
+            .catch(error => console.error(error));
+        });

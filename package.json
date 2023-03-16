@@ -2,6 +2,17 @@
   "name": "mondu-node",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "author": {
+    "name": "Hannes Reinberger"
+  },
+  "contributors": [
+    "ChatGPT"
+  ],
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/hreinberger/mondu-node"
+    },
   "scripts": {
     "start": "nodemon ./bin/www",
     "prod": "NODE_ENV=production node ./bin/www"
@@ -17,7 +28,8 @@
     "multer": "^1.4.5-lts.1",
     "node-fetch": "3.x",
     "nodemon": "2.x",
-    "pug": "3.0.x"
+    "pug": "3.0.x",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "eslint": "8.x",
