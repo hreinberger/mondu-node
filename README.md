@@ -71,8 +71,12 @@ sequenceDiagram
     Buyer ->>+ Mondu: Enrich Widget Data 
     Mondu -->>- Buyer: Show Widget Response
     note over Merchant,Mondu: Order in authorized state
+    opt 
+        Buyer ->> Merchant: Confirm Order ("Buy Now")
+    end
     Merchant ->> Mondu: Confirm Order
     Mondu -->> Merchant: Order confirmed
+
 ```
 ![Mondu Demo App](/.github/assets/mondu-node-3.png "Mondu Demo App")
 
