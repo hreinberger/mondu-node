@@ -3,8 +3,9 @@ extends layout
 block content
   .container
     h1 Orders
-    p This page shows basic info for the last 10 Mondu orders
-    p Currently, the amount of orders is only configurable by changing the request URL in the /routes/orders/index.js file.
+    .alert.alert-secondary
+      p This page shows basic info for the last 10 Mondu orders
+      p Currently, the amount of orders is only configurable by changing the request URL in the /routes/orders/index.js file.
   .container
     table.table.table-hover
       thead

@@ -1,82 +1,59 @@
-// Get the form and the checkout button
 const checkoutForm = document.getElementById('checkout-form');
 const confirmButton = document.getElementById('confirm-button');
 const authorizeButton = document.getElementById('authorize-button');
 
-// Mondu Confirm Flow
+// function for creating an order with Mondu using the form data 
+// and returning the token and Mondu uuid needed for the widget
+const fetchSessionToken = async (apiEndpoint) => {
+  const formData = new FormData(checkoutForm);
+  const response = await fetch(apiEndpoint, {
+    method: 'POST',
+    body: formData
+  });
+  const data = await response.json();
+  return {
+    token: data.order.token,
+    uuid: data.order.uuid
+  };
+};
+
+const renderMonduWidget = (checkoutToken, uuid, onSuccessCallback) => {
+  const checkoutOptions = {
+    token: checkoutToken,
+    // callbacks from the Mondu widget
+    onClose: () => {},
+    onCancel: () => {},
+    onSuccess: onSuccessCallback,
+    onError: (err) => {
+      console.log(err)
+    }
+  };
+  window.monduCheckout.render(checkoutOptions);
+};
+
+// handle direct confirmation flow
+// in this flow, the buyers' last touchpoint in the checkout is with
+// the mondu widget
 confirmButton.addEventListener('click', async (event) => {
   event.preventDefault();
-
-  // Send the form data to the internal API and get the session token
-  // Why don't we request the Mondu API directly from here?
-  // Because we don't want our precious API key to leak to the client
-  // It's always a good idea to do as many requests Server-to-Server to avoid leaking secrets
-  const formData = new FormData(checkoutForm);
-  const response = await fetch('/mondu-confirm', {
-    method: 'POST',
-    body: formData
+  const { token } = await fetchSessionToken('/mondu-confirm');
+  renderMonduWidget(token, null, () => {
+    console.log('Mondu Success!');
+    setTimeout(() => {
+      window.location.href = '/success';
+    }, 2000);
   });
-  const data = await response.json();
-  const token = data.order.token;
-  
-
-  // Append the token to mondu widget
-
-  const checkoutToken = token;
-  const checkoutOptions = {
-    token: checkoutToken,
-    onClose: () => {},
-    onCancel: () => {},
-    onSuccess: () => {
-        // redirect to success page
-        console.log('Mondu Success!')
-        setTimeout( () => {window.location.href = '/success';}, "2000");
-    },
-    onError: (err) => {
-        console.log(err)
-    }
-  };
-  console.log(checkoutOptions);
-
-  window.monduCheckout.render(checkoutOptions);
-
 });
 
-// Mondu Auth Flow
+// handle authorization flow
+// in this flow, buyers will have to explicitly confirm a Mondu order
 authorizeButton.addEventListener('click', async (event) => {
   event.preventDefault();
-
-  // Send the form data to the internal API and get the session token
-  // Why don't we request the Mondu API directly from here?
-  // Because we don't want our precious API key to leak to the client
-  // It's always a good idea to do as many requests Server-to-Server to avoid leaking secrets
-  const formData = new FormData(checkoutForm);
-  const response = await fetch('/mondu-auth', {
-    method: 'POST',
-    body: formData
+  const { token, uuid } = await fetchSessionToken('/mondu-auth');
+  renderMonduWidget(token, uuid, () => {
+    console.log('Mondu Success!');
+    setTimeout(() => {
+      window.location.href = '/order/' + uuid;
+    }, 2000);
   });
-  const data = await response.json();
-  const token = data.order.token;
-  const uuid = data.order.uuid; // get the order uuid for the confirmation later
-
-  // Append the token to mondu widget
-
-  const checkoutToken = token;
-  const checkoutOptions = {
-    token: checkoutToken,
-    onClose: () => {},
-    onCancel: () => {},
-    onSuccess: () => {
-        // redirect to success page
-        console.log('Mondu Success!')
-        setTimeout( () => {window.location.href = '/order/'+ uuid;}, "2000");
-    },
-    onError: (err) => {
-        console.log(err)
-    }
-  };
-  console.log(checkoutOptions);
-
-  window.monduCheckout.render(checkoutOptions);
-
 });
