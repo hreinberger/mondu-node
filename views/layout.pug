@@ -8,15 +8,17 @@ html(lang='')
     meta(name='description', content='Mondu Integration')
     meta(name='author', content='Hannes Reinberger')
     title Mondu Demo Integration
-    //- Bootstrap core CSS
-    link(href='/stylesheets/bootstrap.css', rel='stylesheet')
-    //- link(href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css', rel='stylesheet')
-    //- link(href='/css/style.css', rel='stylesheet')
+    //- Bootstrap core CSS with Mondu styling
+    link(href='/stylesheets/style.css', rel='stylesheet')
     link(href='../stylesheets/checkout.css' rel='stylesheet')
   body
     nav.navbar.navbar-expand
       .container-fluid
-        a(class="navbar-brand" href="/") Mondu Demo Integration
+        a(class="navbar-brand" href="/") 
+          img(src='https://checkout.mondu.ai/logo.svg' alt='Mondu Logo' height='20').d-inline-block.align-text-top
+          |
+          |
+          Mondu Demo Integration
         button(class="navbar-toggler" type="button"
             data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false"
@@ -29,4 +31,6 @@ html(lang='')
             a(class='nav-link' href="https://github.com/hreinberger/mondu-node") Github Repo
     //- view content starts here
     block content
+    footer.my-5.pt-5.text-muted.text-center.text-small
+      p.mb-1 &copy; 2023 Mondu
     script(src='/javascripts/bootstrap.js' defer='')

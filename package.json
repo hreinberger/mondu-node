@@ -10,15 +10,17 @@
     "ChatGPT"
   ],
   "repository": {
-      "type": "git",
-      "url": "https://github.com/hreinberger/mondu-node"
-    },
+    "type": "git",
+    "url": "https://github.com/hreinberger/mondu-node"
+  },
   "scripts": {
     "start": "nodemon ./bin/www",
-    "prod": "NODE_ENV=production node ./bin/www"
+    "build:css": "sass scss/style.scss public/stylesheets/style.css",
+    "prod": "NODE_ENV=production sass scss/style.scss public/stylesheets/style.css && node ./bin/www"
   },
   "dependencies": {
     "axios": "1.x",
+    "bootstrap": "^5.3.0-alpha1",
     "cookie-parser": "1.x",
     "debug": "4.x",
     "dotenv": "16.x",
@@ -29,6 +31,7 @@
     "node-fetch": "3.x",
     "nodemon": "2.x",
     "pug": "3.0.x",
+    "sass": "^1.59.3",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
