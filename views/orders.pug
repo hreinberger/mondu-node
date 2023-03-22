@@ -15,11 +15,10 @@ block content
           th Status
       tbody.table-group-divider
         each order in orders
-          tr.align-middle
+          tr.align-middle(onclick=`window.location.href='/order/${order.uuid}'`, style="cursor: pointer;")
             td= order.created_at
             td= order.external_reference_id
-            td
-              a(href="/order/" + order.uuid) #{order.uuid}
+            td= order.uuid
             td= order.payment_method
             td= order.real_price_cents/100
             td
@@ -28,8 +27,11 @@ block content
                   span.badge.bg-success= order.state
                 when "canceled"
                   span.badge.bg-danger= order.state
+                when "declined"
+                  span.badge.bg-danger= order.state                  
                 default 
                   span.badge.bg-secondary= order.state
+
     nav
       ul.pagination
         li.page-item(class=page === 1 ? 'disabled' : '')

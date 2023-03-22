@@ -27,6 +27,8 @@ block content
                                             span.badge.bg-success= order.state
                                         when "canceled"
                                             span.badge.bg-danger= order.state
+                                        when "declined"
+                                            span.badge.bg-danger= order.state
                                         default 
                                             span.badge.bg-secondary= order.state
                                 //- Show confirmation button if there's something to confirm
