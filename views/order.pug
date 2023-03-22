@@ -3,27 +3,36 @@ extends layout
 block content 
     .container 
         .row.justify-content-md-center 
-            .col-6 
+            .col-8 
                 .card
                     .card-header.text-center
                         span Order details
                     .card-body 
                         .card-title 
-                            h5 Reference ID: #{order.external_reference_id }
+                            h5 Reference ID: 
+                                span.badge.bg-secondary #{order.external_reference_id }
                         .card-body
-                            p Mondu uuid: #{order.uuid}
-                            p Amount in cents: #{order.real_price_cents}
-                            p State: 
-                                case order.state
-                                    when "confirmed"
-                                        span.badge.bg-success= order.state
-                                    when "canceled"
-                                        span.badge.bg-danger= order.state
-                                    default 
-                                        span.badge.bg-secondary= order.state
-                            //- Show confirmation button if there's something to confirm
+                            ul.list-group.list-group-flush
+                                li.list-group-item.d-flex.justify-content-between.align-items-center Mondu uuid 
+                                    span.badge.bg-secondary #{order.uuid}
+                                li.list-group-item.d-flex.justify-content-between.align-items-center Amount in cent 
+                                    span.badge.bg-secondary #{order.real_price_cents}
+                                li.list-group-item.d-flex.justify-content-between.align-items-center Payment method 
+                                    span.badge.bg-secondary #{order.payment_method}
+                                li.list-group-item.d-flex.justify-content-between.align-items-center Buyer
+                                    span.badge.bg-secondary #{order.buyer.company_name}
+                                li.list-group-item.d-flex.justify-content-between.align-items-center State 
+                                    case order.state
+                                        when "confirmed"
+                                            span.badge.bg-success= order.state
+                                        when "canceled"
+                                            span.badge.bg-danger= order.state
+                                        default 
+                                            span.badge.bg-secondary= order.state
+                                //- Show confirmation button if there's something to confirm
                             if order.state === "authorized"
-                                p.alert.alert-secondary This order is currently authorized by Mondu. You can confirm it by clicking the button below.
+                                .alert.alert-secondary 
+                                    span This order is currently authorized by Mondu. You can confirm it by clicking the button below.
                                 button.btn.btn-success#confirm-button Confirm
 
     //- If confirm button is clicked, call internal API that handles the Mondu Order Confirmation

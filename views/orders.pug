@@ -3,9 +3,6 @@ extends layout
 block content
   .container
     h1 Orders
-    .alert.alert-secondary
-      p This page shows basic info for the last 10 Mondu orders
-      p Currently, the amount of orders is only configurable by changing the request URL in the /routes/orders/index.js file.
   .container
     table.table.table-hover
       thead
@@ -33,3 +30,9 @@ block content
                   span.badge.bg-danger= order.state
                 default 
                   span.badge.bg-secondary= order.state
+    nav
+      ul.pagination
+        li.page-item(class=page === 1 ? 'disabled' : '')
+          a.page-link(href=`/orders/${page - 1}`) Previous
+        li.page-item(class=orders.length < perPage ? 'disabled' : '')
+          a.page-link(href=`/orders/${page + 1}`) Next
