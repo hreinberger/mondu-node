@@ -1,59 +1,51 @@
 const checkoutForm = document.getElementById("checkout-form");
+
+// "Pay Now" button
 const confirmButton = document.getElementById("confirm-button");
+
+// "Continue Checkout" Button
+// this triggers the authorization flow
 const authorizeButton = document.getElementById("authorize-button");
 
-// function for creating an order with Mondu using the form data
-// and returning the token and Mondu uuid needed for the widget
-const fetchSessionToken = async (apiEndpoint) => {
-  const formData = new FormData(checkoutForm);
-  const response = await fetch(apiEndpoint, {
-    method: "POST",
-    body: formData,
-  });
+// get Mondu session token from internal API endpoint --> see monduCreateOrder.js
+const fetchSessionToken = async (apiEndpoint, formData) => {
+  const response = await fetch(apiEndpoint, { method: "POST", body: formData });
   const data = await response.json();
-  return {
-    token: data.order.token,
-    uuid: data.order.uuid,
-  };
+  return { token: data.order.token, uuid: data.order.uuid };
 };
 
 const renderMonduWidget = (checkoutToken, uuid, onSuccessCallback) => {
-  const checkoutOptions = {
+  window.monduCheckout.render({
     token: checkoutToken,
-    // callbacks from the Mondu widget
     onClose: () => {},
     onCancel: () => {},
     onSuccess: onSuccessCallback,
-    onError: (err) => {
-      console.log(err);
-    },
-  };
-  window.monduCheckout.render(checkoutOptions);
+    onError: (err) => console.log(err),
+  });
 };
 
-// handle direct confirmation flow
-// in this flow, the buyers' last touchpoint in the checkout is with
-// the mondu widget
-confirmButton.addEventListener("click", async (event) => {
+const handleButtonClick = async (event, authorize) => {
   event.preventDefault();
-  const { token } = await fetchSessionToken("/mondu-confirm");
-  renderMonduWidget(token, null, () => {
-    console.log("Mondu Success!");
-    setTimeout(() => {
-      window.location.href = "/success";
-    }, 2000);
-  });
-});
+  const formData = new FormData(checkoutForm);
+  formData.append("authorize", authorize);
+  const { token, uuid } = await fetchSessionToken(
+    "/mondu-create-order",
+    formData
+  );
 
-// handle authorization flow
-// in this flow, buyers will have to explicitly confirm a Mondu order
-authorizeButton.addEventListener("click", async (event) => {
-  event.preventDefault();
-  const { token, uuid } = await fetchSessionToken("/mondu-auth");
   renderMonduWidget(token, uuid, () => {
     console.log("Mondu Success!");
     setTimeout(() => {
-      window.location.href = "/order/" + uuid;
+      // on authorization flow, redirect to order summary screen, otherwise show success page
+      window.location.href = authorize ? "/order/" + uuid : "/success";
     }, 2000);
   });
-});
+};
+
+// handle button clicks. The "authorize" button triggers the Mondu authorization flow
+confirmButton.addEventListener("click", (event) =>
+  handleButtonClick(event, false)
+);
+authorizeButton.addEventListener("click", (event) =>
+  handleButtonClick(event, true)
+);

@@ -11,9 +11,8 @@ require("dotenv").config();
 var indexRouter = require("./routes/index");
 
 // The Routes we're using
-var monduAuthRouter = require("./routes/monduAuth");
-var monduConfirmRouter = require("./routes/monduConfirm");
 var monduConfirmOrderRouter = require("./routes/confirmOrder");
+var monduCreateOrderRouter = require("./routes/monduCreateOrder");
 var checkoutRouter = require("./routes/checkout");
 var getordersRouter = require("./routes/orders");
 var getorderRouter = require("./routes/order");
@@ -35,9 +34,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Routers
 app.use("/", indexRouter);
-app.use("/mondu-auth", monduAuthRouter);
-app.use("/mondu-confirm", monduConfirmRouter);
 app.use("/mondu-confirm-order", monduConfirmOrderRouter);
+app.use("/mondu-create-order", monduCreateOrderRouter);
 app.use("/checkout", checkoutRouter);
 app.use("/orders", getordersRouter);
 app.use("/order", getorderRouter);
