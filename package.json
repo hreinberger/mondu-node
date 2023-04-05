@@ -14,9 +14,11 @@
     "url": "https://github.com/hreinberger/mondu-node"
   },
   "scripts": {
-    "start": "nodemon ./bin/www",
+    "dev": "nodemon ./bin/www",
+    "start": "node ./bin/www",
     "build:css": "sass scss/style.scss public/stylesheets/style.css",
-    "prod": "NODE_ENV=production sass scss/style.scss public/stylesheets/style.css && node ./bin/www"
+    "prod": "NODE_ENV=production sass scss/style.scss public/stylesheets/style.css & node ./bin/www",
+    "test": "npm run build:css && npm run start & wait-on http://localhost:3000 & cypress run"
   },
   "dependencies": {
     "axios": "1.x",
@@ -35,8 +37,11 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "cypress": "^12.8.1",
+    "cypress-iframe": "^1.0.1",
     "eslint": "8.x",
     "eslint-config-prettier": "8.x",
-    "prettier": "2.x"
+    "prettier": "2.x",
+    "wait-on": "^7.0.1"
   }
 }
