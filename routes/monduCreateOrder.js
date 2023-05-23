@@ -71,20 +71,21 @@ router.post("/", upload.none(), async function (req, res) {
       ],
       payment_method: req.body.paymentMethod,
       language: "en",
-      success_url: "https://google.com",
+      // URLs to redirect to after hosted checkout
+      success_url: publicUrl + "/success",
       declined_url: "https://bing.com",
-      cancel_url: "https://mondu.ai",
+      cancel_url: publicUrl,
       total_discount_cents: 0,
       external_reference_id: "test" + Date.now(), // fill external reference with a unique value. Can be changed later
       notes: "your notes here",
       source: "widget",
       gross_amount_cents: 102000,
-      ...(shouldAuthorize ? { state_flow: "authorization_flow" } : {}), // trigger Mondu authorization flow when requested
+      ...(shouldAuthorize ? { state_flow: "authorization_flow" } : {}), // trigger Mondu authorization flow when requested - important for hosted checkout
     },
   };
 
   // send Create Order Request
-  // The request returns the session token we need to link the widget to the order
+  // The request returns the session token we need to link the widget to the order or the hosted chekcout URL to redirect to
 
   const MonduSession = await axios
     .request(options)

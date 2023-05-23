@@ -41,7 +41,9 @@
     "cypress-iframe": "^1.0.1",
     "eslint": "8.x",
     "eslint-config-prettier": "8.x",
+    "localtunnel": "^2.0.2",
     "prettier": "2.x",
+    "public-ip": "^6.0.1",
     "wait-on": "^7.0.1"
   }
 }
