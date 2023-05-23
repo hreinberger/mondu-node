@@ -11,7 +11,11 @@ const authorizeButton = document.getElementById("authorize-button");
 const fetchSessionToken = async (apiEndpoint, formData) => {
   const response = await fetch(apiEndpoint, { method: "POST", body: formData });
   const data = await response.json();
-  return { token: data.order.token, uuid: data.order.uuid };
+  return {
+    token: data.order.token,
+    uuid: data.order.uuid,
+    hosted_checkout_url: data.order.hosted_checkout_url,
+  };
 };
 
 const renderMonduWidget = (checkoutToken, uuid, onSuccessCallback) => {
@@ -28,18 +32,24 @@ const handleButtonClick = async (event, authorize) => {
   event.preventDefault();
   const formData = new FormData(checkoutForm);
   formData.append("authorize", authorize);
-  const { token, uuid } = await fetchSessionToken(
+  const { token, uuid, hosted_checkout_url } = await fetchSessionToken(
     "/mondu-create-order",
     formData
   );
 
-  renderMonduWidget(token, uuid, () => {
-    console.log("Mondu Success!");
-    setTimeout(() => {
-      // on authorization flow, redirect to order summary screen, otherwise show success page
-      window.location.href = authorize ? "/order/" + uuid : "/success";
-    }, 2000);
-  });
+  if (authorize && hosted_checkout_url) {
+    // If the hosted_checkout_url parameter exists and the authorizeButton was clicked, redirect to it
+    window.location.href = hosted_checkout_url;
+  } else {
+    // Otherwise, proceed as before
+    renderMonduWidget(token, uuid, () => {
+      console.log("Mondu Success!");
+      setTimeout(() => {
+        // on authorization flow, redirect to order summary screen, otherwise show success page
+        window.location.href = authorize ? "/order/" + uuid : "/success";
+      }, 2000);
+    });
+  }
 };
 
 // handle button clicks. The "authorize" button triggers the Mondu authorization flow
