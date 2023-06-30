@@ -51,12 +51,15 @@ block content
                 .invalid-feedback
                   | Valid last name is required.
               .col-12
-                label.form-label(for='email')
-                  | Email
-                  span.text-muted
-                input#email.form-control(type='email' name='email' placeholder='you@example.com' value='test@example.com' required='')
+                label.form-label(for='email') Email
+                select#email.form-select(name='email' required='')
+                  option(value='') Choose Email
+                  option(value='accepted@example.com') accepted@example.com
+                  option(value='kyc@example.com') kyc@example.com
+                  option(value='openbanking@example.com') openbanking@example.com
+                  option(value='declined@example.com') 	declined@example.com
                 .invalid-feedback
-                  | Please enter a valid email address for shipping updates.
+                  | Please select a valid email.
               .col-12
                 label.form-label(for='address') Address
                 input#address.form-control(type='text' name='address' placeholder='1234 Main St' value='Alexanderstr 36' required='')
