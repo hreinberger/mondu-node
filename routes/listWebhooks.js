@@ -11,7 +11,7 @@ let getWebhooks = async (page) => {
   };
 
   let response = await axios(config);
-  console.log(response.data);
+  //console.log(response.data);
   return response.data.webhooks;
 };
 
@@ -25,11 +25,6 @@ router.get("/:page?", async (req, res, next) => {
 
   webhooks = await getWebhooks(page);
   orderStatus = handleWebhookPayload.getWebhooksPayload()['order'];
-  /**console.log('order declined:', handleWebhookPayload.getWebhooksPayload()['order/declined']); 
-  if (handleWebhookPayload.getWebhooksPayload()['order/declined'] != undefined) {
-    orderStatus = handleWebhookPayload.getWebhooksPayload()['order/confirmed'].concat(handleWebhookPayload.getWebhooksPayload()['order/declined']);
-  }
-  console.log('order statuses:', orderStatus);**/
   invoicStatus = handleWebhookPayload.getWebhooksPayload()['invoice'];
 
   res.render("webhooks", {
