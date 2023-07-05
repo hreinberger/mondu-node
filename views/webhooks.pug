@@ -28,6 +28,40 @@ block content
               //a.btn.btn-danger(href='javascript:void(0)', onclick="deleteWebhook()") Remove
               a.btn.btn-danger(href='javascript:void(0)', onclick=`deleteWebhook('${webhook.uuid}')`) Remove
 
+    - if (orderStatus && orderStatus.length > 0 && orderStatus[0]!=undefined)
+      h1 Order status
+      table.table.table-hover
+        thead
+          tr
+            th Order UUID
+            th Order ID
+            th Webhook Topic
+            th Order Status 
+        tbody.table-group-divider
+            each order in orderStatus
+              tr
+                td= order.order_uuid
+                td= order.external_reference_id
+                td= order.topic
+                td= order.order_state
+    
+    - if (invoicStatus && invoicStatus.length > 0)
+      h1 Invoice Status
+      table.table.table-hover
+        thead
+          tr
+            th Order UUID
+            th Order ID
+            th Webhook Topic
+            th Order Status 
+        tbody.table-group-divider
+            each invoice in invoicStatus
+              tr
+                td= invoice.order_uuid
+                td= invoice.external_reference_id
+                td= invoice.topic
+                td= invoice.order_state        
+
     nav
       ul.pagination
         li.page-item(class=page === 1 ? 'disabled' : '')

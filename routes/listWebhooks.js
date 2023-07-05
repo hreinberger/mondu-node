@@ -1,8 +1,9 @@
 var express = require("express");
 var router = express.Router();
 var axios = require("axios");
+var handleWebhookPayload = require("../public/javascripts/handleWebhookPayload.js");
 
-let getOrders = async (page) => {
+let getWebhooks = async (page) => {
   const config = {
     method: "get",
     url: `https://api.demo.mondu.ai/api/v1/webhooks?page=${page}&per_page=10`,
@@ -22,10 +23,20 @@ router.get("/:page?", async (req, res, next) => {
     return res.status(400).send("Invalid page number");
   }
 
-  webhooks = await getOrders(page);
+  webhooks = await getWebhooks(page);
+  orderStatus = handleWebhookPayload.getWebhooksPayload()['order'];
+  /**console.log('order declined:', handleWebhookPayload.getWebhooksPayload()['order/declined']); 
+  if (handleWebhookPayload.getWebhooksPayload()['order/declined'] != undefined) {
+    orderStatus = handleWebhookPayload.getWebhooksPayload()['order/confirmed'].concat(handleWebhookPayload.getWebhooksPayload()['order/declined']);
+  }
+  console.log('order statuses:', orderStatus);**/
+  invoicStatus = handleWebhookPayload.getWebhooksPayload()['invoice'];
+
   res.render("webhooks", {
     webhooks,
     page,
+    orderStatus,
+    invoicStatus,
   });
 });
 
