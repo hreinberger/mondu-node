@@ -5,8 +5,7 @@ const multer = require("multer");
 const upload = multer();
 
 router.post("/", upload.none(), async function (req, res) {
-  // log incoming data
-  console.log("Delete Webhooks");
+ 
 
 
   // Check if we need to authorize the order
@@ -28,11 +27,11 @@ router.post("/", upload.none(), async function (req, res) {
   const MonduSession = await axios
     .request(options)
     .then(function (response) {
-      console.log(response.data);
+      //console.log(response.data);
       return response.data;
     })
     .catch(function (error) {
-      console.error(error.response.data);
+      //console.error(error.response.data);
       return error.response.data;
     });
 
