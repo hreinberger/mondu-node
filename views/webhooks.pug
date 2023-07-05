@@ -50,17 +50,17 @@ block content
       table.table.table-hover
         thead
           tr
-            th Order UUID
-            th Order ID
-            th Webhook Topic
+            th Invoice UUID
+            th Invoice ID
+            th Timestamp
             th Order Status 
         tbody.table-group-divider
             each invoice in invoicStatus
               tr
-                td= invoice.order_uuid
+                td= invoice.invoice_uuid
                 td= invoice.external_reference_id
-                td= invoice.topic
-                td= invoice.order_state        
+                td= invoice.event_time
+                td= invoice.amount_cents        
 
     nav
       ul.pagination
