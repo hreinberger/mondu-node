@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "axios": "1.x",
-    "bootstrap": "^5.3.0-alpha1",
+    "bootstrap": "^5.3.x",
     "cookie-parser": "1.x",
     "debug": "4.x",
     "dotenv": "16.x",
@@ -31,7 +31,7 @@
     "morgan": "1.x",
     "multer": "^1.4.5-lts.1",
     "node-fetch": "3.x",
-    "nodemon": "2.x",
+    "nodemon": "3.x",
     "pug": "3.0.x",
     "sass": "^1.59.3",
     "uuid": "^9.0.0"
