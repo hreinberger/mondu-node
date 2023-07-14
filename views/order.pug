@@ -3,7 +3,7 @@ extends layout
 block content 
     .container 
         .row.justify-content-md-center 
-            .col-8 
+            .col-10 
                 .card
                     .card-header.text-center
                         span Order details
@@ -30,14 +30,22 @@ block content
                                         when "declined"
                                             span.badge.bg-danger= order.state
                                         default 
-                                            span.badge.bg-secondary= order.state
-                                //- Show confirmation button if there's something to confirm
-                            if order.state === "authorized"
-                                .alert.alert-secondary 
+                                            span.badge.bg-secondary= order.state                               
+                        
+                        if order.state === "authorized"
+                            .card-body
+                                .alert.alert-light
                                     span This order is currently authorized by Mondu. You can confirm it by clicking the button below.
-                                button.btn.btn-success#confirm-button Confirm
+                                    hr
+                                    button.btn.btn-success#confirm-button Confirm Order
+                    .card-footer
+                        .card-body
+                            button.btn.btn-outline-secondary(data-bs-toggle='collapse' href='#collapseOrder') Show Full Order Data
+                        .collapse#collapseOrder
+                            hr
+                            pre#order-data 
+                                | #{JSON.stringify(order, null, 2)}
 
-    //- If confirm button is clicked, call internal API that handles the Mondu Order Confirmation
     script. 
         confirmButton = document.getElementById('confirm-button');
         confirmButton.addEventListener('click', async (event) => {

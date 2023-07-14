@@ -3,3 +3,4 @@ node_modules/
 docker-compose.override.yml
 .DS_Store
 cypress/videos
+cypress/screenshots
