@@ -3,7 +3,7 @@ extends layout
 block content 
     .container 
         .row.justify-content-md-center 
-            .col-8 
+            .col-10 
                 .card
                     .card-header.text-center
                         span Order details
@@ -31,13 +31,17 @@ block content
                                             span.badge.bg-danger= order.state
                                         default 
                                             span.badge.bg-secondary= order.state
-                                //- Show confirmation button if there's something to confirm
                             if order.state === "authorized"
                                 .alert.alert-secondary 
                                     span This order is currently authorized by Mondu. You can confirm it by clicking the button below.
                                 button.btn.btn-success#confirm-button Confirm
+                            button.btn.btn-outline-secondary(data-bs-toggle='collapse' href='#collapseExample') Show Full Order Data
 
-    //- If confirm button is clicked, call internal API that handles the Mondu Order Confirmation
+                        .collapse#collapseExample
+                            .card.card-footer
+                                pre#order-data 
+                                    | #{JSON.stringify(order, null, 2)}
+
     script. 
         confirmButton = document.getElementById('confirm-button');
         confirmButton.addEventListener('click', async (event) => {
