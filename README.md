@@ -8,7 +8,7 @@ This repo aims to help you in setting up a demo app for Mondu BNPL. It's built w
 - axios and fetch for async API communication
 - Bootstrap
 
-![Mondu Demo App](/.github/assets/mondu-node-1.png "Mondu Demo App")
+![Mondu Demo App](/.github/assets/mondu-node-1.jpeg "Mondu Demo App")
 
 ## How To Run
 
@@ -63,7 +63,7 @@ sequenceDiagram
 
 ```
 
-![Mondu Demo App](/.github/assets/mondu-node-3.png "Mondu Demo App")
+![Mondu Demo App](/.github/assets/mondu-node-3.jpeg "Mondu Demo App")
 
 ### Confirmation Flow (Mondu Widget)
 
@@ -79,6 +79,12 @@ sequenceDiagram
     Mondu -->>- Buyer: Show Widget Response
     Mondu -->> Merchant: Webhook order/confirmed
 ```
+
+## "Backend"
+
+You can show recent orders by visiting the `/orders` page.
+
+![Mondu Demo App](/.github/assets/mondu-node-2.jpeg "Mondu Demo App")
 
 ## To Do
 

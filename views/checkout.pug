@@ -103,17 +103,12 @@ block content
                 label.form-check-label(for='flexRadioDefault3')
                   | Mondu Installment
             hr.my-4
+            .row.justify-content-center
+              .col-8
+                button.w-100.btn.btn-primary.btn-lg(type='submit' id='authorize-button') Pay Now
             .row 
-              .alert.alert-secondary
-                p You can decide if you want to invoke Mondu's classic widget behavior by clicking the "Pay Now" button. 
-                p Alternatively, you can use the Mondu Hosted Checkout. You'll need to manually confirm the order on the next page. 
-            .row 
-              .col 
-                button.w-100.btn.btn-primary.btn-lg(type='submit' id='confirm-button') Pay Now
-              .col-1 
-                span.text-center or
               .col
-                button.w-100.btn.btn-secondary.btn-lg(type='submit' id='authorize-button') Continue Checkout
+                button.w-100.btn.btn-sm.btn-link(type='submit' id='confirm-button') use legacy Mondu widget
 
   script(src='javascripts/checkout.js' defer='')
   script(src='javascripts/mondu.js' defer='')
