@@ -1,3 +1,6 @@
+
+
+
 function registerWebhook(type) {
     // Perform the action to register the webhook using AJAX or JavaScript logic
     // For example:
@@ -35,7 +38,7 @@ function deleteWebhook(uuid) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uuid:uuid})
+        body: JSON.stringify({ uuid: uuid })
     })
         .then(response => {
             // Handle the response as needed
@@ -52,3 +55,4 @@ function deleteWebhook(uuid) {
             console.log(error);
         });
 }
+

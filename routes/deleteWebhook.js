@@ -3,40 +3,32 @@ var router = express.Router();
 const axios = require("axios");
 const multer = require("multer");
 const upload = multer();
+//const deleteWebhook = require("../helpers/mondu_api/deleteWebhook");
 
-router.post("/", upload.none(), async function (req, res) {
- 
-
-
-  // Check if we need to authorize the order
-  const shouldAuthorize = req.body.authorize === "true";
-
-  // Fill Delete Webhook Request
-  const options = {
-    method: "DELETE",
-    url: 'https://api.demo.mondu.ai/api/v1/webhooks/' + req.body.uuid,
-    headers: {
-      accept: "application/json",
-      "content-type": "application/json",
-      "Api-Token": process.env.MONDU_KEY, // read Mondu API key from .env
-    }
+//This function calls mondu API delete webhook endpoint.
+let deleteWebhook = async (uuid) => {
+  const config = {
+    method: "delete",
+    url: `https://api.demo.mondu.ai/api/v1/webhooks/` + uuid,
+    headers: { "Api-Token": process.env.MONDU_KEY },
   };
+  let response = await axios(config).catch(function (error) {
+    console.log("Delete webhook failed:", error.response.data);
+    return error.response.data;
+  });
+  return response.data;
+};
 
-  // Send Delete Webhook Request
 
-  const MonduSession = await axios
-    .request(options)
-    .then(function (response) {
-      //console.log(response.data);
-      return response.data;
-    })
-    .catch(function (error) {
-      //console.error(error.response.data);
-      return error.response.data;
-    });
+//Local endpoint used to trigger deletion of webhook with specific uuid
+router.post("/", upload.none(), async function (req, res) {
 
-  // print API request output
-  res.send(MonduSession);
+  //Delete Webhook calling Mondu API.
+  const deleteWebhookResult = await deleteWebhook(req.body.uuid);
+  //Show registration result in console.
+  console.log("Delete Webhook:", deleteWebhookResult);
+  res.send(deleteWebhookResult);
+
 });
 
 module.exports = router;

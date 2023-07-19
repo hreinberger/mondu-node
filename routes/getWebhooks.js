@@ -1,20 +1,25 @@
 var express = require("express");
 var router = express.Router();
 var axios = require("axios");
-var handleWebhookPayload = require("../public/javascripts/handleWebhookPayload.js");
+var handleWebhookPayload = require("../helpers/webhooks/handleWebhookPayload.js");
 
+//This function calls mondu API delete webhook endpoint.
 let getWebhooks = async (page) => {
   const config = {
     method: "get",
+    //url: `https://api.demo.mondu.ai/api/v1/webhooks`,
     url: `https://api.demo.mondu.ai/api/v1/webhooks?page=${page}&per_page=10`,
     headers: { "Api-Token": process.env.MONDU_KEY },
   };
+  let response = await axios(config).catch(function (error) {
+    console.log("Get webhooks failed:", error.response.data);
+    return error.response.data;
+  });
 
-  let response = await axios(config);
-  //console.log(response.data);
   return response.data.webhooks;
 };
 
+//Application endpoint that invoces the page lisitng webhooks
 router.get("/:page?", async (req, res, next) => {
   const page = req.params.page ? parseInt(req.params.page) : 1;
 
@@ -24,6 +29,7 @@ router.get("/:page?", async (req, res, next) => {
   }
 
   webhooks = await getWebhooks(page);
+  console.log('Get all registered webhooks:', webhooks);
   orderStatus = handleWebhookPayload.getWebhooksPayload()['order'];
   invoicStatus = handleWebhookPayload.getWebhooksPayload()['invoice'];
 
