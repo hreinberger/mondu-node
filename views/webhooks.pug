@@ -1,0 +1,73 @@
+extends layout
+
+block content
+  .container
+    h1 Webhooks
+    
+    a.btn.btn-primary(href='javascript:void(0)', onclick="registerWebhook('order')") Register Order Webhook
+                 
+    | &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    
+    a.btn.btn-primary(href='javascript:void(0)', onclick="registerWebhook('invoice')") Register Invoice Webhook
+  
+  .container
+    table.table.table-hover
+      thead
+        tr
+          th Monud UUID
+          th Topic
+          th Address
+          th Action
+      tbody.table-group-divider
+        each webhook in webhooks
+          tr
+            td= webhook.uuid
+            td= webhook.topic
+            td= webhook.address
+            td
+              //a.btn.btn-danger(href='javascript:void(0)', onclick="deleteWebhook()") Remove
+              a.btn.btn-danger(href='javascript:void(0)', onclick=`deleteWebhook('${webhook.uuid}')`) Remove
+
+    - if (orderStatus && orderStatus.length > 0 && orderStatus[0]!=undefined)
+      h1 Order status
+      table.table.table-hover
+        thead
+          tr
+            th Order UUID
+            th Order ID
+            th Webhook Topic
+            th Order Status 
+        tbody.table-group-divider
+            each order in orderStatus
+              tr
+                td= order.order_uuid
+                td= order.external_reference_id
+                td= order.topic
+                td= order.order_state
+    
+    - if (invoicStatus && invoicStatus.length > 0)
+      h1 Invoice Status
+      table.table.table-hover
+        thead
+          tr
+            th Invoice UUID
+            th Invoice ID
+            th Timestamp
+            th Invoice Ammount 
+        tbody.table-group-divider
+            each invoice in invoicStatus
+              tr
+                td= invoice.invoice_uuid
+                td= invoice.external_reference_id
+                td= invoice.event_time
+                td= invoice.amount_cents        
+
+    nav
+      ul.pagination
+        li.page-item(class=page === 1 ? 'disabled' : '')
+          a.page-link(href=`/listWebhooks/${page - 1}`) Previous
+        li.page-item(class=webhooks.length < perPage ? 'disabled' : '')
+          a.page-link(href=`/listWebhooks/${page + 1}`) Next
+
+  script(src='javascripts/webhooks.js' defer='')
+  //script(src='javascripts/mondu_api/deleteWebhook.js' defer='')

@@ -6,6 +6,8 @@ var logger = require("morgan");
 
 // dotENV
 require("dotenv").config();
+console.log(process.env.MONDU_KEY);
+console.log("API KEY");
 
 // standard Express Routes
 var indexRouter = require("./routes/index");
@@ -17,6 +19,12 @@ var checkoutRouter = require("./routes/checkout");
 var getordersRouter = require("./routes/orders");
 var getorderRouter = require("./routes/order");
 var successRouter = require("./routes/success");
+var orderStatusWebhookRouter = require("./routes/orderStatusWebhook");
+var invoiceStatusWebhookRouter = require("./routes/invoiceStatusWebhook");
+var getWebhooksRouter = require("./routes/getWebhooks");
+var registerWebhookRouter = require("./routes/registerWebhook");
+var deleteWebhookRouter = require("./routes/deleteWebhook");
+
 
 var app = express();
 
@@ -40,6 +48,11 @@ app.use("/checkout", checkoutRouter);
 app.use("/orders", getordersRouter);
 app.use("/order", getorderRouter);
 app.use("/success", successRouter);
+app.use("/orderStatus", orderStatusWebhookRouter);
+app.use("/invoiceStatus", invoiceStatusWebhookRouter);
+app.use("/webhooks", getWebhooksRouter);
+app.use("/register-webhook", registerWebhookRouter);
+app.use("/delete-webhook", deleteWebhookRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -86,6 +86,21 @@ You can show recent orders by visiting the `/orders` page.
 
 ![Mondu Demo App](/.github/assets/mondu-node-2.jpeg "Mondu Demo App")
 
+## "Webhooks"
+
+You can show registered webhooks by visiting the `/webhooks` page.
+
+You can register the webhooks for two topics at the moment:
+
+- order by clicking upon `Regiter Order Webhook`,
+
+- invoice by clicking upon `Regiter Invoice Webhook`,
+
+If there there other webhook registerd for a given topic, please use `Remove` button to remove the endpoint and regitring the new one. 
+
+Remember that other applications might use the webhooks you want to remove. 
+
+
 ## To Do
 
 ✅ - Demo Checkout working
@@ -100,4 +115,4 @@ You can show recent orders by visiting the `/orders` page.
 
 ⬜ - Invoice Workflow
 
-⬜ - Webhooks
+✅ - Webhooks
