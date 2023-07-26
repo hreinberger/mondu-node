@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var axios = require("axios");
 const { v4: uuidv4, validate: uuidValidate } = require("uuid");
+var handleWebhookPayload = require("../helpers/webhooks/handleWebhookPayload.js");
 
 let getOrder = async () => {
   const config = {
@@ -22,10 +23,14 @@ router.get("/:uuid", async (req, res, next) => {
   }
 
   uuid = req.params.uuid;
+  orderStatus = handleWebhookPayload.getOrderWebhooksPayload(uuid);
 
   order = await getOrder();
+  console.log('Orders Payload:',orderStatus);
+  
   res.render("order", {
-    order,
+    order,   
+    orderStatus
   });
 });
 
