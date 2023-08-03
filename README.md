@@ -116,3 +116,5 @@ Remember that other applications might use the webhooks you want to remove.
 ⬜ - Invoice Workflow
 
 ✅ - Webhooks
+
+✅ - Order status change in order overview

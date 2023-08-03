@@ -30,7 +30,25 @@ block content
                                         when "declined"
                                             span.badge.bg-danger= order.state
                                         default 
-                                            span.badge.bg-secondary= order.state                               
+                                            span.badge.bg-secondary= order.state   
+                   
+                    if (orderStatus && orderStatus.length > 0 && orderStatus[0]!=undefined)
+                        .card-body 
+                            .card-title 
+                                h5 Status change overview: 
+                          
+                            .card-body
+                        
+                                    table.table.table-hover
+                                        thead
+                                        tr
+                                            th Webhook topic
+                                            th Order status 
+                                        tbody.table-group-divider
+                                           each order in orderStatus
+                                            tr
+                                                td= order.topic
+                                                td= order.order_state                                             
                         
                         if order.state === "authorized"
                             .card-body
