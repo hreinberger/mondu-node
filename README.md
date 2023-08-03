@@ -86,7 +86,7 @@ You can show recent orders by visiting the `/orders` page.
 
 ![Mondu Demo App](/.github/assets/mondu-node-2.jpeg "Mondu Demo App")
 
-## "Webhooks"
+## Webhooks
 
 You can show registered webhooks by visiting the `/webhooks` page.
 
