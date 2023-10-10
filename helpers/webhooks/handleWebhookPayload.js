@@ -25,8 +25,17 @@ const handleWebhookPayload = {
 
     //Return all saved webhook payloads
     getWebhooksPayload() {
+        
         return webhookpayload;
+    },
+
+    //Return all saved webhook payloads for specific order
+    getOrderWebhooksPayload(uuid) {
+        console.log(uuid);
+        console.log(webhookpayload['order']);
+        return webhookpayload['order'].filter((item) => item.order_uuid === uuid);
     }
+    
 }
 
 module.exports = handleWebhookPayload;
