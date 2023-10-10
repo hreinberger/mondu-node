@@ -18,10 +18,10 @@ cp .env.example .env
 nano .env
 # insert your API key in the .env
 npm install
-npm start
+npm run dev
 ```
 
-You can now access the app at `localhost:3000`.
+Running in dev mode opens up a [Localtunnel](https://localtunnel.github.io/www/) back to your local machine. You can get the link and your local IP from the nodeJS console. You can access the app either with the localtunnel link or via `localhost:3000`. The localtunnel feature is needed for redirecting you back from Mondu's hosted checkout to the app.
 
 ### Bring your own API Key
 
@@ -86,7 +86,7 @@ You can show recent orders by visiting the `/orders` page.
 
 ![Mondu Demo App](/.github/assets/mondu-node-2.jpeg "Mondu Demo App")
 
-## "Webhooks"
+## Webhooks
 
 You can show registered webhooks by visiting the `/webhooks` page.
 
@@ -96,10 +96,9 @@ You can register the webhooks for two topics at the moment:
 
 - invoice by clicking upon `Regiter Invoice Webhook`,
 
-If there there other webhook registerd for a given topic, please use `Remove` button to remove the endpoint and regitring the new one. 
+If there there other webhook registerd for a given topic, please use `Remove` button to remove the endpoint and regitring the new one.
 
-Remember that other applications might use the webhooks you want to remove. 
-
+Remember that other applications might use the webhooks you want to remove.
 
 ## To Do
 

@@ -33,7 +33,7 @@ server.listen(port, function () {
   // Setup localtunnel
   (async () => {
     const tunnel = await localtunnel({ port: port });
-
+    console.log("Setting up localtunnel for redirects back to local machine");
     console.log(`Public URL: ${tunnel.url}`);
 
     try {
