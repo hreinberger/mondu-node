@@ -6,8 +6,6 @@ var logger = require("morgan");
 
 // dotENV
 require("dotenv").config();
-console.log(process.env.MONDU_KEY);
-console.log("API KEY");
 
 // standard Express Routes
 var indexRouter = require("./routes/index");
@@ -24,7 +22,6 @@ var invoiceStatusWebhookRouter = require("./routes/invoiceStatusWebhook");
 var getWebhooksRouter = require("./routes/getWebhooks");
 var registerWebhookRouter = require("./routes/registerWebhook");
 var deleteWebhookRouter = require("./routes/deleteWebhook");
-
 
 var app = express();
 
