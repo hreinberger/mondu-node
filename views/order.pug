@@ -32,23 +32,23 @@ block content
                                         default 
                                             span.badge.bg-secondary= order.state   
                    
-                    if (orderStatus && orderStatus.length > 0 && orderStatus[0]!=undefined)
-                        .card-body 
-                            .card-title 
-                                h5 Status change overview: 
-                          
-                            .card-body
-                        
-                                    table.table.table-hover
-                                        thead
-                                        tr
-                                            th Webhook topic
-                                            th Order status 
-                                        tbody.table-group-divider
-                                           each order in orderStatus
+                        if (orderStatus && orderStatus.length > 0 && orderStatus[0]!=undefined)
+                            .card-body 
+                                .card-title 
+                                    h5 Status change overview: 
+                            
+                                .card-body
+                            
+                                        table.table.table-hover
+                                            thead
                                             tr
-                                                td= order.topic
-                                                td= order.order_state                                             
+                                                th Webhook topic
+                                                th Order status 
+                                            tbody.table-group-divider
+                                            each order in orderStatus
+                                                tr
+                                                    td= order.topic
+                                                    td= order.order_state                                             
                         
                         if order.state === "authorized"
                             .card-body
@@ -64,7 +64,7 @@ block content
                             pre#order-data 
                                 | #{JSON.stringify(order, null, 2)}
 
-    script. 
+    script.
         confirmButton = document.getElementById('confirm-button');
         confirmButton.addEventListener('click', async (event) => {
             event.preventDefault();

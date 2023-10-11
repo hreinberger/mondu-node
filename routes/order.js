@@ -26,11 +26,9 @@ router.get("/:uuid", async (req, res, next) => {
   orderStatus = handleWebhookPayload.getOrderWebhooksPayload(uuid);
 
   order = await getOrder();
-  console.log('Orders Payload:',orderStatus);
-  
   res.render("order", {
-    order,   
-    orderStatus
+    order,
+    orderStatus,
   });
 });
 
