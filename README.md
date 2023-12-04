@@ -1,4 +1,4 @@
-# 🚧 Mondu Demo Integration 🚧
+# Mondu Demo Integration
 
 This repo aims to help you in setting up a demo app for Mondu BNPL. It's built with:
 
@@ -6,7 +6,7 @@ This repo aims to help you in setting up a demo app for Mondu BNPL. It's built w
 - Express
 - Pug as templating engine
 - axios and fetch for async API communication
-- Bootstrap
+- Bootstrap 5
 
 ![Mondu Demo App](/.github/assets/mondu-node-1.jpeg "Mondu Demo App")
 
@@ -37,6 +37,10 @@ docker compose build && docker compose up -d
 ```
 
 ⚠️ The app is not checked for vulnerabilities, so be careful when you want to run it in a public environment (like the Internet!)
+
+### Hostname
+
+When setting an `APP_HOSTNAME` environment variable and running in prodcution mode (`npm run prod`), the app will use the set hostname for redirects.
 
 ## Payment Flows
 
@@ -92,11 +96,11 @@ You can show registered webhooks by visiting the `/webhooks` page.
 
 You can register the webhooks for two topics at the moment:
 
-- order by clicking upon `Regiter Order Webhook`,
+- orders by clicking upon `Regiter Order Webhook`,
 
-- invoice by clicking upon `Regiter Invoice Webhook`,
+- invoices by clicking upon `Regiter Invoice Webhook`,
 
-If there there other webhook registerd for a given topic, please use `Remove` button to remove the endpoint and regitring the new one.
+If there there other webhooks registerd for a given topic, please use `Remove` button to remove the endpoint and register the new one.
 
 Remember that other applications might use the webhooks you want to remove.
 

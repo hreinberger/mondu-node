@@ -14,7 +14,7 @@ block content
     table.table.table-hover
       thead
         tr
-          th Monud UUID
+          th Mondu UUID
           th Topic
           th Address
           th Action
@@ -25,7 +25,6 @@ block content
             td= webhook.topic
             td= webhook.address
             td
-              //a.btn.btn-danger(href='javascript:void(0)', onclick="deleteWebhook()") Remove
               a.btn.btn-danger(href='javascript:void(0)', onclick=`deleteWebhook('${webhook.uuid}')`) Remove
 
     - if (orderStatus && orderStatus.length > 0 && orderStatus[0]!=undefined)
@@ -70,4 +69,3 @@ block content
           a.page-link(href=`/listWebhooks/${page + 1}`) Next
 
   script(src='javascripts/webhooks.js' defer='')
-  //script(src='javascripts/mondu_api/deleteWebhook.js' defer='')
