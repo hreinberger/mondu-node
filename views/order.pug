@@ -29,6 +29,8 @@ block content
                                             span.badge.bg-danger= order.state
                                         when "declined"
                                             span.badge.bg-danger= order.state
+                                        when "pending"
+                                            span.badge.bg-warning= order.state
                                         default 
                                             span.badge.bg-secondary= order.state   
                    
@@ -69,17 +71,26 @@ block content
         confirmButton.addEventListener('click', async (event) => {
             event.preventDefault();
             const uuid = '#{order.uuid}';
-            const response = await fetch('/mondu-confirm-order', {
-                method: 'POST',
-                headers: {
-                "Content-Type": "application/json"},
-                body: JSON.stringify({ uuid: uuid })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.order.state === "confirmed") {
-                    window.location.href = "/success";
+            
+            try {
+                const response = await fetch('/mondu-confirm-order', {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ uuid: uuid })
+                });
+
+                // Check if the response is successful (status code in the range 200-299)
+                if (response.ok) {
+                    // Reload the page if the response is successful
+                    location.reload();
+                } else {
+                    // Log the error if the response is not successful
+                    console.error(`Error: ${response.status} - ${response.statusText}`);
+                }
+            } catch (error) {
+                // Log any other errors to the console
+                console.error(error);
             }
-            })
-            .catch(error => console.error(error));
         });

@@ -28,7 +28,9 @@ block content
                 when "canceled"
                   span.badge.bg-danger= order.state
                 when "declined"
-                  span.badge.bg-danger= order.state                  
+                  span.badge.bg-danger= order.state     
+                when "pending"
+                  span.badge.bg-warning= order.state              
                 default 
                   span.badge.bg-secondary= order.state
 
