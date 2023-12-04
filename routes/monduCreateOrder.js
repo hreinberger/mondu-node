@@ -76,7 +76,7 @@ router.post("/", upload.none(), async function (req, res) {
       declined_url: "https://bing.com",
       cancel_url: publicUrl,
       total_discount_cents: 0,
-      external_reference_id: "test" + Date.now(), // fill external reference with a unique value. Can be changed later
+      external_reference_id: "mondu-node-" + Date.now(), // fill external reference with a unique value. Can be changed later
       notes: "your notes here",
       source: "widget",
       gross_amount_cents: 102000,

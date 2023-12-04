@@ -11,10 +11,11 @@ var localtunnel = require("localtunnel");
 var axios = require("axios");
 
 /**
- * Get port from environment and store in Express.
+ * Get port and hostname from environment and store in Express.
  */
 
 var port = normalizePort(process.env.PORT || "3000");
+var hostname = process.env.HOSTNAME; // Get hostname from environment
 app.set("port", port);
 
 /**
@@ -28,25 +29,35 @@ var server = http.createServer(app);
  */
 
 server.listen(port, function () {
-  console.log(`Express server listening on port ${port}`);
+  // Check if the HOSTNAME environment variable is present
+  if (hostname) {
+    // If the hostname is provided, assume it's connected to the internet
+    console.log(
+      `Using provided hostname for external access: ${hostname}:${port}`,
+    );
+    global.publicUrl = `http://${hostname}`;
+  } else {
+    // Setup localtunnel if no hostname is provided
+    (async () => {
+      const tunnel = await localtunnel({ port: port });
+      console.log(
+        "Setting up localtunnel for redirects back to the local machine",
+      );
+      console.log(`Public URL: ${tunnel.url}`);
 
-  // Setup localtunnel
-  (async () => {
-    const tunnel = await localtunnel({ port: port });
-    console.log("Setting up localtunnel for redirects back to local machine");
-    console.log(`Public URL: ${tunnel.url}`);
+      try {
+        const response = await axios.get("https://icanhazip.com");
+        console.log(`Public IP: ${response.data.trim()}`);
+      } catch (error) {
+        console.error(`Error fetching public IP: ${error}`);
+      }
 
-    try {
-      const response = await axios.get("https://icanhazip.com");
-      console.log(`Public IP: ${response.data.trim()}`);
-    } catch (error) {
-      console.error(`Error fetching public IP: ${error}`);
-    }
-
-    // Set the public URL to a global variable
-    global.publicUrl = tunnel.url;
-  })();
+      // Set the public URL to a global variable
+      global.publicUrl = tunnel.url;
+    })();
+  }
 });
+
 server.on("error", onError);
 server.on("listening", onListening);
 
