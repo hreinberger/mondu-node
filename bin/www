@@ -14,7 +14,7 @@ var axios = require("axios");
  */
 
 var port = normalizePort(process.env.PORT || "3000");
-var hostname = process.env.HOSTNAME; // New: Get hostname from environment
+var hostname = process.env.APP_HOSTNAME; // New: Get hostname from environment
 app.set("port", port);
 
 /**
@@ -32,7 +32,7 @@ server.listen(port, function () {
   if (hostname) {
     // If the hostname is provided, assume it's connected to the internet
     console.log(`Using provided hostname for external access: ${hostname}`);
-    global.publicUrl = `http://${hostname}`;
+    global.publicUrl = `https://${hostname}`;
   } else if (process.env.NODE_ENV !== "production") {
     // Setup localtunnel only in development
     setupLocalTunnel(port);
