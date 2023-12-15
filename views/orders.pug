@@ -20,7 +20,7 @@ block content
             td= order.external_reference_id
             td= order.uuid
             td= order.payment_method
-            td= order.real_price_cents/100
+            td= (order.real_price_cents/100).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })
             td
               case order.state
                 when "confirmed"
