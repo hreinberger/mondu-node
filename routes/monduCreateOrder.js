@@ -73,8 +73,8 @@ router.post("/", upload.none(), async function (req, res) {
       language: "en",
       // URLs to redirect to after hosted checkout
       success_url: publicUrl + "/success",
-      declined_url: "https://bing.com",
-      cancel_url: publicUrl,
+      declined_url: publicUrl + "/decline",
+      cancel_url: publicUrl + "/checkout",
       total_discount_cents: 0,
       external_reference_id: "mondu-node-" + Date.now(), // fill external reference with a unique value. Can be changed later
       notes: "your notes here",
