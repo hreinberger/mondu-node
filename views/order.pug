@@ -76,30 +76,32 @@ block content
         // This can be helpful when final order IDs in your system are generated post-checkout
         // https://docs.mondu.ai/reference/post_api-v1-orders-uuid-confirm
         confirmButton = document.getElementById('confirm-button');
-        confirmButton.addEventListener('click', async (event) => {
-            event.preventDefault();
-            const uuid = '#{order.uuid}';
-            const externalRefId = document.getElementById('externalRefId').value;
-            
-            try {
-                const response = await fetch('/mondu-confirm-order', {
-                    method: 'POST',
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({ uuid: uuid, externalRefId: externalRefId })
-                });
+        if (confirmButton) {
+            confirmButton.addEventListener('click', async (event) => {
+                event.preventDefault();
+                const uuid = '#{order.uuid}';
+                const externalRefId = document.getElementById('externalRefId').value;
+                
+                try {
+                    const response = await fetch('/mondu-confirm-order', {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ uuid: uuid, externalRefId: externalRefId })
+                    });
 
-                // Check if the response is successful (status code in the range 200-299)
-                if (response.ok) {
-                    // Reload the page if the response is successful
-                    location.reload();
-                } else {
-                    // Log the error if the response is not successful
-                    console.error(`Error: ${response.status} - ${response.statusText}`);
+                    // Check if the response is successful (status code in the range 200-299)
+                    if (response.ok) {
+                        // Reload the page if the response is successful
+                        location.reload();
+                    } else {
+                        // Log the error if the response is not successful
+                        console.error(`Error: ${response.status} - ${response.statusText}`);
+                    }
+                } catch (error) {
+                    // Log any other errors to the console
+                    console.error(error);
                 }
-            } catch (error) {
-                // Log any other errors to the console
-                console.error(error);
-            }
-        });
+            });
+        }
