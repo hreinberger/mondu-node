@@ -42,7 +42,7 @@ block content
                   | Valid first name is required.
               .col-sm-6
                 label.form-label(for='lastName') Last name
-                input#lastName.form-control(type='text' name='lastName' placeholder='' value='Mustermann' required='')
+                input#lastName.form-control(type='text' name='lastName' placeholder='' value='Mustermensch' required='')
                 .invalid-feedback
                   | Valid last name is required.
               .col-sm-6
@@ -53,13 +53,14 @@ block content
               .col-12
                 label.form-label(for='email') Email
                 select#email.form-select(name='email' required='')
-                  option(value='accepted.mondu-node@example.com') accepted@example.com
-                  option(value='kyc@example.com') kyc@example.com
-                  option(value='openbanking@example.com') openbanking@example.com
-                  option(value='declined@example.com') 	declined@example.com
-                  option(value='pending@example.com') 	pending@example.com
+                  option(value='accepted.mondu-node@example.com') accepted@example.com - successful order ✅
+                  option(value='declined.mondu-node@example.com') 	declined@example.com - order decline ❌
+                  option(value='pending.mondu-node@example.com') 	pending@example.com - pending order 🕒
+                  option(value='kyc.mondu-node@example.com') kyc@example.com - KYC is required
+                  option(value='openbanking.mondu-node@example.com') openbanking@example.com - open banking identification is required
                 .invalid-feedback
                   | Please select a valid email.
+                small.text-muted Your email choice defines the Mondu test case to run
               .col-12
                 label.form-label(for='address') Address
                 input#address.form-control(type='text' name='address' placeholder='1234 Main St' value='Alexanderstr 36' required='')
@@ -73,10 +74,10 @@ block content
               .col-md-5
                 label.form-label(for='country') Country
                 select#country.form-select(name='country' required='')
-                  option(value='') Choose...
                   option(value='DE') Germany
                   option(value='AT') Austria
                   option(value='NL') Netherlands
+                  option(value='GB') United Kingdom
                 .invalid-feedback
                   | Please select a valid country.
               .col-md-3
@@ -100,9 +101,13 @@ block content
                 label.form-check-label(for='flexRadioDefault2')
                   | Mondu Direct Debit
               .form-check
-                input#flexRadioDefault2.form-check-input(type='radio' value='installment' name='paymentMethod')
+                input#flexRadioDefault3.form-check-input(type='radio' value='installment' name='paymentMethod')
                 label.form-check-label(for='flexRadioDefault3')
                   | Mondu Installment
+              .form-check
+                input#flexRadioDefault4.form-check-input(type='radio' value='installment_by_invoice' name='paymentMethod')
+                label.form-check-label(for='flexRadioDefault4')
+                  | Mondu Installment by Invoice (UK only)                
             hr.my-4
             .row.justify-content-center
               .col-8
