@@ -57,7 +57,10 @@ block content
                                 .alert.alert-light
                                     span This order is currently authorized by Mondu. You can confirm it by clicking the button below.
                                     hr
-                                    button.btn.btn-success#confirm-button Confirm Order
+                                    form
+                                        .mb-3
+                                            input#externalRefId.form-control(type="text", name="externalRefId", placeholder="optional External Reference ID")       
+                                    button.btn.btn-success#confirm-button(type="submit") Confirm Order
                     .card-footer
                         .card-body
                             button.btn.btn-outline-secondary(data-bs-toggle='collapse' href='#collapseOrder') Show Full Order Data
@@ -67,10 +70,16 @@ block content
                                 | #{JSON.stringify(order, null, 2)}
 
     script.
+        // If the order is authorized, enable confirming it from the UI
+        // In the real world, this action would be done by your backend whenever the buyer has completed the checkout process
+        // You can also overwrite the external reference ID here, if you want to use a different one than the one you provided during checkout
+        // This can be helpful when final order IDs in your system are generated post-checkout
+        // https://docs.mondu.ai/reference/post_api-v1-orders-uuid-confirm
         confirmButton = document.getElementById('confirm-button');
         confirmButton.addEventListener('click', async (event) => {
             event.preventDefault();
             const uuid = '#{order.uuid}';
+            const externalRefId = document.getElementById('externalRefId').value;
             
             try {
                 const response = await fetch('/mondu-confirm-order', {
@@ -78,7 +87,7 @@ block content
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    body: JSON.stringify({ uuid: uuid })
+                    body: JSON.stringify({ uuid: uuid, externalRefId: externalRefId })
                 });
 
                 // Check if the response is successful (status code in the range 200-299)

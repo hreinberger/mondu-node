@@ -11,7 +11,13 @@ router.post("/", async function (req, res) {
   }
 
   const uuid = req.body.uuid;
+  const externalRefId = req.body.externalRefId;
   const url = "https://api.demo.mondu.ai/api/v1/orders/" + uuid + "/confirm";
+
+  const data = {};
+  if (externalRefId) {
+    data.external_reference_id = externalRefId;
+  }
 
   // Fill Confirm Order API Request
   const options = {
@@ -22,9 +28,7 @@ router.post("/", async function (req, res) {
       "content-type": "application/json",
       "Api-Token": process.env.MONDU_KEY, // read Mondu API key from .env
     },
-    data: {
-      comment: "order confirmation comment",
-    },
+    data: data, // data is empty if externalRefId is not provided
   };
 
   const MonduResponse = await axios
