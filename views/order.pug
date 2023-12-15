@@ -15,8 +15,8 @@ block content
                             ul.list-group.list-group-flush
                                 li.list-group-item.d-flex.justify-content-between.align-items-center Mondu uuid 
                                     span.badge.bg-secondary #{order.uuid}
-                                li.list-group-item.d-flex.justify-content-between.align-items-center Amount in cent 
-                                    span.badge.bg-secondary #{order.real_price_cents}
+                                li.list-group-item.d-flex.justify-content-between.align-items-center Amount
+                                    span.badge.bg-secondary #{(order.real_price_cents/100).toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}
                                 li.list-group-item.d-flex.justify-content-between.align-items-center Payment method 
                                     span.badge.bg-secondary #{order.payment_method}
                                 li.list-group-item.d-flex.justify-content-between.align-items-center Buyer
