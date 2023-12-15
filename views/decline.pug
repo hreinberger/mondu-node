@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  .container
+    h1= title
+    .alert.alert-danger
+      p Sorry, your order was declined.
+      p
+        a.btn.btn-danger(href="/orders") Open Orders Screen
