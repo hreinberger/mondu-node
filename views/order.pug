@@ -1,6 +1,6 @@
 extends layout
 
-block content 
+block content
     .container 
         .row.justify-content-md-center 
             .col-10 
@@ -59,8 +59,20 @@ block content
                                     hr
                                     form
                                         .mb-3
-                                            input#externalRefId.form-control(type="text", name="externalRefId", placeholder="optional External Reference ID")       
+                                            input#orderExternalRefId.form-control(type="text", name="orderExternalRefId", placeholder="optional External Reference ID")       
                                     button.btn.btn-success#confirm-button(type="submit") Confirm Order
+
+                        if order.state === "confirmed" || order.state === "partially_shipped"
+                            .card-body
+                                .alert.alert-light
+                                    span This order is ready to be shipped and invoiced. Create an invoice by clicking the button below.
+                                    hr
+                                    form
+                                        .mb-3
+                                            input#invoiceExternalRefId.form-control(type="text", name="invoiceExternalRefId", placeholder="Invoice ID")
+                                        .mb-3
+                                            input#invoiceAmount.form-control(type="number", name="invoiceAmount", placeholder="invoice amount (in smallest currency unit)", value="102000")       
+                                    button.btn.btn-success#invoice-button(type="submit") Send Invoice
                     .card-footer
                         .card-body
                             button.btn.btn-outline-secondary(data-bs-toggle='collapse' href='#collapseOrder') Show Full Order Data
@@ -68,40 +80,82 @@ block content
                             hr
                             pre#order-data 
                                 | #{JSON.stringify(order, null, 2)}
-
+    
     script.
+        // Order confirmation
+
         // If the order is authorized, enable confirming it from the UI
         // In the real world, this action would be done by your backend whenever the buyer has completed the checkout process
         // You can also overwrite the external reference ID here, if you want to use a different one than the one you provided during checkout
         // This can be helpful when final order IDs in your system are generated post-checkout
         // https://docs.mondu.ai/reference/post_api-v1-orders-uuid-confirm
-        confirmButton = document.getElementById('confirm-button');
-        if (confirmButton) {
-            confirmButton.addEventListener('click', async (event) => {
-                event.preventDefault();
-                const uuid = '#{order.uuid}';
-                const externalRefId = document.getElementById('externalRefId').value;
-                
-                try {
-                    const response = await fetch('/mondu-confirm-order', {
-                        method: 'POST',
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({ uuid: uuid, externalRefId: externalRefId })
-                    });
 
-                    // Check if the response is successful (status code in the range 200-299)
-                    if (response.ok) {
-                        // Reload the page if the response is successful
-                        location.reload();
-                    } else {
-                        // Log the error if the response is not successful
-                        console.error(`Error: ${response.status} - ${response.statusText}`);
-                    }
-                } catch (error) {
-                    // Log any other errors to the console
-                    console.error(error);
-                }
+        confirmButton = document.getElementById("confirm-button");
+
+        if (confirmButton) {
+        confirmButton.addEventListener("click", async (event) => {
+            event.preventDefault();
+            const uuid = "#{order.uuid}";
+            const externalRefId = document.getElementById("orderExternalRefId").value;
+
+            try {
+            const response = await fetch("/mondu-confirm-order", {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ uuid: uuid, externalRefId: externalRefId }),
             });
+
+            // Check if the response is successful (status code in the range 200-299)
+            if (response.ok) {
+                // Reload the page if the response is successful
+                location.reload();
+            } else {
+                // Log the error if the response is not successful
+                console.error(`Error: ${response.status} - ${response.statusText}`);
+            }
+            } catch (error) {
+            // Log any other errors to the console
+            console.error(error);
+            }
+        });
+        }
+
+        // Invoice creation
+
+        invoiceButton = document.getElementById("invoice-button");
+        if (invoiceButton) {
+        invoiceButton.addEventListener("click", async (event) => {
+            event.preventDefault();
+            const uuid = "#{order.uuid}";
+            const externalRefId = document.getElementById("invoiceExternalRefId").value;
+            const invoiceAmount = document.getElementById("invoiceAmount").value;
+
+            try {
+            const response = await fetch("/mondu-create-invoice", {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                uuid: uuid,
+                externalRefId: externalRefId,
+                amount: invoiceAmount,
+                }),
+            });
+
+            // Check if the response is successful (status code in the range 200-299)
+            if (response.ok) {
+                // Reload the page if the response is successful
+                location.reload();
+            } else {
+                // Log the error if the response is not successful
+                console.error(`Error: ${response.status} - ${response.statusText}`);
+            }
+            } catch (error) {
+            // Log any other errors to the console
+            console.error(error);
+            }
+        });
         }

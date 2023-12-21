@@ -28,6 +28,7 @@
     "debug": "4.x",
     "dotenv": "16.x",
     "express": "4.x",
+    "form-data": "^4.0.0",
     "http-errors": "2.x",
     "morgan": "1.x",
     "multer": "^1.4.5-lts.1",
