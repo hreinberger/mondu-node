@@ -40,7 +40,7 @@ docker compose build && docker compose up -d
 
 ### Hostname
 
-When setting an `APP_HOSTNAME` environment variable and running in prodcution mode (`npm run prod`), the app will use the set hostname for redirects.
+When setting an `APP_HOSTNAME` environment variable and running in prodcution mode (`npm run prod` or `docker compose up -d`), the app will use the set hostname for redirects.
 
 ## Payment Flows
 
@@ -84,11 +84,17 @@ sequenceDiagram
     Mondu -->> Merchant: Webhook order/confirmed
 ```
 
-## "Backend"
+## Order Management
 
 You can show recent orders by visiting the `/orders` page.
 
 ![Mondu Demo App](/.github/assets/mondu-node-2.jpeg "Mondu Demo App")
+
+### Invoices and Shipments
+
+Orders with the `confirmed` state can be invoiced and shipped. This app uploads a generic invoice PDF with every invoice generation request to the Mondu API.
+
+See `routes/monduCreateInvoice.js` for more details on this request.
 
 ## Webhooks
 
@@ -96,9 +102,9 @@ You can show registered webhooks by visiting the `/webhooks` page.
 
 You can register the webhooks for two topics at the moment:
 
-- orders by clicking upon `Regiter Order Webhook`,
+- orders by clicking upon `Register Order Webhook`,
 
-- invoices by clicking upon `Regiter Invoice Webhook`,
+- invoices by clicking upon `Register Invoice Webhook`,
 
 If there there other webhooks registerd for a given topic, please use `Remove` button to remove the endpoint and register the new one.
 
@@ -116,7 +122,7 @@ Remember that other applications might use the webhooks you want to remove.
 
 ⬜ - Order management "backend"
 
-⬜ - Invoice Workflow
+✅ - Invoice Workflow
 
 ✅ - Webhooks
 

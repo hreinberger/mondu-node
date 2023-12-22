@@ -6,7 +6,7 @@ block content
             .col-10 
                 .card
                     .card-header.text-center
-                        span Order details
+                        h4 Order details
                     .card-body 
                         .card-title 
                             h5 Reference ID: 
@@ -31,6 +31,10 @@ block content
                                             span.badge.bg-danger= order.state
                                         when "pending"
                                             span.badge.bg-warning= order.state
+                                        when "shipped"
+                                            span.badge.bg-success= order.state
+                                        when "partially_shipped"
+                                            span.badge.bg-success= order.state                                            
                                         default 
                                             span.badge.bg-secondary= order.state   
                    
@@ -123,6 +127,9 @@ block content
         }
 
         // Invoice creation
+
+        // If the order is confirmed or partialy shipped, enable creating an invoice from the UI
+        // see /mondu-create-invoice route for more details
 
         invoiceButton = document.getElementById("invoice-button");
         if (invoiceButton) {
