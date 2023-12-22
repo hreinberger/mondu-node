@@ -2,8 +2,8 @@
 /// <reference types="cypress-iframe" />
 import "cypress-iframe";
 
-describe("Mondu Checkout Form", () => {
-  it("should fill out and submit the checkout form", () => {
+describe("Mondu Widget", () => {
+  it("should create a successful Mondu Invoice Order with the legacy widget", () => {
     cy.visit("/checkout");
     cy.get("#country").select("Germany");
     cy.get("#same-address").check();
@@ -13,6 +13,7 @@ describe("Mondu Checkout Form", () => {
     cy.frameLoaded("[title=mondu_checkout_widget]");
 
     cy.enter("[title=mondu_checkout_widget]").then((getBody) => {
+      cy.wait(5000); // widget takes a while to load
       getBody()
         .find("button[data-test-id='next_button']")
         .scrollIntoView()

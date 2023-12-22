@@ -13,6 +13,7 @@ var indexRouter = require("./routes/index");
 // The Routes we're using
 var monduConfirmOrderRouter = require("./routes/confirmOrder");
 var monduCreateOrderRouter = require("./routes/monduCreateOrder");
+var monduCreateInvoiceRouter = require("./routes/monduCreateInvoice");
 var checkoutRouter = require("./routes/checkout");
 var getordersRouter = require("./routes/orders");
 var getorderRouter = require("./routes/order");
@@ -42,6 +43,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/mondu-confirm-order", monduConfirmOrderRouter);
 app.use("/mondu-create-order", monduCreateOrderRouter);
+app.use("/mondu-create-invoice", monduCreateInvoiceRouter);
 app.use("/checkout", checkoutRouter);
 app.use("/orders", getordersRouter);
 app.use("/order", getorderRouter);
