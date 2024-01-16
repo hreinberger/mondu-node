@@ -124,3 +124,22 @@ async function setupLocalTunnel(port) {
     console.error(`Error setting up localtunnel: ${error}`);
   }
 }
+
+// call Mondu API to retrieve Webhook Secret on startup
+async function getWebhookSecret() {
+  try {
+    const response = await axios.get(
+      "https://api.demo.mondu.ai/api/v1/webhooks/keys",
+      {
+        headers: {
+          "Api-Token": process.env.MONDU_KEY,
+        },
+      },
+    );
+    global.webhookSecret = response.data.webhook_secret;
+  } catch (error) {
+    console.error(`Error fetching Webhook Secret: ${error}`);
+  }
+}
+
+getWebhookSecret();
