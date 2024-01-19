@@ -8,9 +8,12 @@ module.exports = class MonduVerifier {
   }
 
   verify(payload, signature) {
+    // Extract the text of the UTF-8 payload as an array of bytes (including line endings)
+    var encodedPayload = Buffer.from(JSON.stringify(payload), "utf8");
+
     var signaturePayload = crypto
       .createHmac("sha256", secret)
-      .update(payload)
+      .update(encodedPayload)
       .digest("hex");
 
     if (signaturePayload == signature) {

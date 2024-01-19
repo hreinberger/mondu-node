@@ -9,9 +9,11 @@ var MonduVerifier = require("../helpers/webhooks/checkWebhookSignature.js");
 //This endpoint awaits Order Webhook payload
 router.post("/", upload.none(), async function (req, res) {
   // Verify webhook authenticity https://docs.mondu.ai/reference/webhook-security
+
   var verifier = new MonduVerifier(global.webhookSecret);
+  var payload = req.body;
   var signature = req.headers["x-mondu-signature"];
-  var isVerified = verifier.verify(req.body, signature);
+  var isVerified = verifier.verify(payload, signature);
 
   if (isVerified) {
     handleWebhookPayload.storeWebhooksPayload(req.body);
