@@ -12,7 +12,7 @@ module.exports = class MonduVerifier {
     var encodedPayload = Buffer.from(JSON.stringify(payload), "utf8");
 
     var signaturePayload = crypto
-      .createHmac("sha256", secret)
+      .createHmac("sha256", this.secret)
       .update(encodedPayload)
       .digest("hex");
 
