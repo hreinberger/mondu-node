@@ -35,17 +35,17 @@
     "node-fetch": "3.x",
     "nodemon": "3.x",
     "pug": "3.0.x",
-    "sass": "^1.69.5",
+    "sass": "^1.77.0",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
     "cypress": "13.x",
     "cypress-iframe": "^1.0.1",
-    "eslint": "8.x",
+    "eslint": "9.x",
     "eslint-config-prettier": "9.x",
     "localtunnel": "^2.0.2",
     "prettier": "3.x",
-    "public-ip": "^6.0.1",
-    "wait-on": "^7.1.0"
+    "public-ip": "^6.0.2",
+    "wait-on": "^7.2.0"
   }
 }

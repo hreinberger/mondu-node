@@ -41,16 +41,18 @@ router.post("/", upload.none(), async function (req, res) {
         first_name: req.body.firstName,
         last_name: req.body.lastName,
         company_name: req.body.companyName,
+        external_reference_id: "hr-buyer-01",
       },
       lines: [
         {
+          shipping_price_cents: 1000,
           line_items: [
             {
               quantity: 5,
               external_reference_id: "1",
               title: "Product 1",
               net_price_per_item_cents: 20000,
-              tax_cents: 3800,
+              tax_cents: 19000,
             },
             {
               quantity: 1,
@@ -78,7 +80,7 @@ router.post("/", upload.none(), async function (req, res) {
       total_discount_cents: 0,
       external_reference_id: "mondu-node-ord-" + Date.now(), // fill external reference with a unique value. Can be changed later
       source: "widget",
-      gross_amount_cents: 102000,
+      // gross_amount_cents: 103000,
       ...(shouldAuthorize ? { state_flow: "authorization_flow" } : {}), // trigger Mondu authorization flow when requested - important for hosted checkout
     },
   };
